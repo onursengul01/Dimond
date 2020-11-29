@@ -1,8 +1,14 @@
 import os.path
 import os
+import sys
 from termcolor import colored
 import pyfiglet
 from pyfiglet import figlet_format
+
+if os.getuid() != 0:
+	print("Sorry, this script requires sudo privledges")
+	sys.exit()
+
 class Dimond:
 	def __init__(self):
 		pass
@@ -108,8 +114,34 @@ class Dimond:
 			if options3 == "":
 				return s.NmapScan()
 
+	def Setoolkit(self):
+		path = '/usr/bin/setoolkit'
+		if os.path.exists(path):
+   			os.system("sudo setoolkit")
 
-				
+		else:
+			while True:
+				print("Stoolkit is not found in the system...")
+				option = input("Would you like to install setoolkit? 'y' or 'n': ")
+				if option == "y":
+					gitRepo = "https://github.com/trustedsec/social-engineer-toolkit.git"
+					os.system("sudo apt-get --force-yes -y install git apache3 python3-requests libapache3-mod-php python3-pymssql build-essential python3-pexpect python-pefile python3-crypto python3-openssl")
+					os.system(f"git clone {gitRepo} {path}" )
+					os.system("cd " + path)
+					os.system("pip3 install -r requirements.txt")
+					os.system("sudo python3 setup.py")
+					os.system("clear")
+					os.system("sudo setoolkit")
+					return s.Menu()
+
+				if option == "n":
+					print("bye")
+					return s.Menu()
+
+
+
+
+
 
 s = Dimond()
 s.Menu()
