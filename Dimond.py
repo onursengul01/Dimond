@@ -108,7 +108,7 @@ class Dimond:
 			if options3 == "":
 				return s.NmapScan()
 
-	def Setoolkit(self):
+
 				
 
 s = Dimond()
